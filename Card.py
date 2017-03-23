@@ -1,19 +1,24 @@
-from mergesort import *
+from sorter import *
 card_names_to_rank = {'A':14, 'K':13, 'Q':12, 'J':11, '10':10, '9':9, '8':8, '7':7, '6':6,
 '5':5,'4':4,'3':3, '2':2}
 class Card:
 	#create a new card with inputs of num and suit, both strings
 	def __init__(self,num,suit):
 		self.rank = card_names_to_rank[num]
+		self.name = num
 		self.suit = suit
 	def get_rank(self):
 		return self.rank
 	def get_suit(self):
 		return self.suit
+	def get_name(self):
+		return self.name
 class Hand:
 	#create a new hand with array containing 5 cards
 	def __init__(self,cards):
 		self.hand = cards
+		self.rank = 0
+		self.caculate_rank()
 	#functions to help classify hands
 	def isHighCard(self):
 		self.rank = 1
@@ -22,6 +27,7 @@ class Hand:
 		seen = [0]*15
 		counter = 0
 		pair = []
+		#run through the cards in the hand and add the cards seen more than once to an array
 		for card in self.hand:
 			if seen[card.get_rank()] != 0:
 				counter += 1
@@ -36,6 +42,7 @@ class Hand:
 			for card in self.hand:
 				if card.get_rank() != self.onepair:
 					self.kickers.append(card.get_rank())
+			self.kickers = high_mergesort(self.kickers)
 		if counter == 2:
 			if pair[0] == pair[1]:
 				self.rank = 4
@@ -44,9 +51,10 @@ class Hand:
 				for card in self.hand:
 					if card.get_rank() != self.trips:
 						self.kickers.append(card.get_rank())
+				self.kickers = high_mergesort(self.kickers)
 			else:
 				self.rank = 3
-				self.twopair = pair
+				self.twopair = high_mergesort(pair)
 				self.kickers = []
 				for card in self.hand:
 					if card.get_rank() != pair[0] and card.get_rank() != pair[1]:
@@ -104,4 +112,7 @@ class Hand:
 		if one and two:
 			#straight flush
 			self.rank = 9
-
+	def get_rank(self):
+		return self.rank
+	def get_cards(self):
+		return self.hand
