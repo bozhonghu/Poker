@@ -18,7 +18,10 @@ class Hand:
 	def __init__(self,cards):
 		self.hand = cards
 		self.rank = 0
-		self.caculate_rank()
+		self.ran_calc = False
+	def print_hand(self):
+		for i in range(5):
+			print(self.hand[i].get_name() + self.hand[i].get_suit()),
 	#functions to help classify hands
 	def isHighCard(self):
 		self.rank = 1
@@ -112,7 +115,10 @@ class Hand:
 		if one and two:
 			#straight flush
 			self.rank = 9
+		self.ran_calc = True
 	def get_rank(self):
+		if self.ran_calc == False:
+			self.caculate_rank()
 		return self.rank
 	def get_cards(self):
 		return self.hand

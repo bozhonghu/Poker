@@ -13,8 +13,8 @@ def betterHand(a, b):
 		card_ranks_a = []
 		card_ranks_b = []
 		for i in range(5):
-			card_ranks_a.append(a.get_cards()[i])
-			card_ranks_b.append(b.get_cards()[i])
+			card_ranks_a.append(a.get_cards()[i].get_rank())
+			card_ranks_b.append(b.get_cards()[i].get_rank())
 		card_ranks_a = high_mergesort(card_ranks_a)
 		card_ranks_b = high_mergesort(card_ranks_b)
 		#if both high card then need to run through the cards in the hand from high to low
@@ -121,20 +121,19 @@ def betterHand(a, b):
 				return 3
 c1 = Card('A','h')
 c2 = Card('K','h')
-c3 = Card('Q','h')
-c4 = Card('J','h')
-c5 = Card('10','h')
+c3 = Card('7','h')
+c4 = Card('9','h')
+c5 = Card('2','h')
 s = [c1,c2,c3,c4,c5]
 handa = Hand(s)
-c1 = Card('A','h')
-c2 = Card('A','h')
-c3 = Card('A','h')
-c4 = Card('5','s')
-c5 = Card('5','h')
+c1 = Card('7','h')
+c2 = Card('9','h')
+c3 = Card('2','h')
+c4 = Card('Q','h')
+c5 = Card('J','h')
 s = [c1,c2,c3,c4,c5]
 handb = Hand(s)
-print(handa.rank,handb.rank)
-print(betterHand(handa,handb))
+
 
 
 
